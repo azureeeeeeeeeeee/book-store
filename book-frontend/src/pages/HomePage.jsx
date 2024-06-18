@@ -1,7 +1,8 @@
 // import React from "react";
+import BookCollections from "../components/BookCollections";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <BookCollections />;
 };
 
 export default HomePage;
