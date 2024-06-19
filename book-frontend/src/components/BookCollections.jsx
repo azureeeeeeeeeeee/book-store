@@ -12,10 +12,14 @@ const BookCollections = () => {
     // </section>
     <SimpleGrid
       //   columns={2}
-      minChildWidth="200px"
+      minChildWidth="300px"
       spacing={10}
       className="place-items-center mx-24 my-20"
     >
+      <BookCard coverUrl={"./cover/cover-1.webp"} />
+      <BookCard coverUrl={"./cover/cover-2.jpg"} />
+      <BookCard coverUrl={"./cover/cover-1.webp"} />
+      <BookCard coverUrl={"./cover/cover-2.jpg"} />
       <BookCard coverUrl={"./cover/cover-1.webp"} />
       <BookCard coverUrl={"./cover/cover-2.jpg"} />
       <BookCard coverUrl={"./cover/cover-1.webp"} />
