@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Input,
   Avatar,
@@ -29,7 +28,7 @@ const NavBar = () => {
             <Avatar name="username" src="https://bit.ly/dan-abramov" />
           </MenuButton>
           <MenuList>
-            <Link>
+            <Link to="/cart">
               <MenuItem>
                 <FaShoppingCart className="mr-4" />
                 Cart
