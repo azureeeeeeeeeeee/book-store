@@ -15,9 +15,14 @@ const BookCard = ({ coverUrl }) => {
     <Card maxW="sm">
       <CardBody>
         <Image
+          //   boxSize="200px"
           src={coverUrl}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
+          width="200px"
+          height="300px"
+          objectFit="cover"
+          className="mx-auto"
         />
         <Stack mt="6" spacing="3">
           <Heading size="md">Living room Sofa</Heading>
