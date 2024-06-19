@@ -34,7 +34,9 @@ const Register = () => {
               Publisher
             </Heading>
             <Text>Are you a Publisher and want to publish your book ?</Text>
-            <Button colorScheme="blue">Register as a Publisher</Button>
+            <Link to="/register/publisher">
+              <Button colorScheme="blue">Register as a Publisher</Button>
+            </Link>
           </Box>
         </SimpleGrid>
       </Box>

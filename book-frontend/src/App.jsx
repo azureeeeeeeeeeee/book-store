@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RegisterCustomerPage from "./pages/RegisterCustomerPage";
+import RegisterPublisherPage from "./pages/RegisterPublisherPage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -19,6 +20,7 @@ const App = () => {
         <Route index element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register/customer" element={<RegisterCustomerPage />} />
+        <Route path="/register/publisher" element={<RegisterPublisherPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Route>
     )
