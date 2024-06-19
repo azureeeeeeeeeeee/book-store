@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 import RegisterCustomerPage from "./pages/RegisterCustomerPage";
 import RegisterPublisherPage from "./pages/RegisterPublisherPage";
 import CartPage from "./pages/CartPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/register/publisher" element={<RegisterPublisherPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
     )
   );

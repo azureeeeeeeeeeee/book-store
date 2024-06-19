@@ -34,7 +34,7 @@ const NavBar = () => {
                 Cart
               </MenuItem>
             </Link>
-            <Link>
+            <Link to="/profile">
               <MenuItem>
                 <FaRegUser className="mr-4" />
                 Profile
