@@ -1,6 +1,7 @@
 // import React from "react";
 import { Box, Text, Heading, SimpleGrid, Button } from "@chakra-ui/react";
 import { FaRegUser, FaBuilding } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -20,7 +21,9 @@ const Register = () => {
               Customer
             </Heading>
             <Text>Are you a customer and just want to buy book ?</Text>
-            <Button colorScheme="blue">Register as a Customer</Button>
+            <Link to="/register/customer">
+              <Button colorScheme="blue">Register as a Customer</Button>
+            </Link>
           </Box>
           <Text>
             <strong>OR</strong>
