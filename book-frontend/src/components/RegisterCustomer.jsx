@@ -70,7 +70,7 @@ const RegisterCustomer = () => {
           </Box>
 
           <Button className="mt-4" colorScheme="blue">
-            Login
+            Register
           </Button>
         </form>
       </Box>
