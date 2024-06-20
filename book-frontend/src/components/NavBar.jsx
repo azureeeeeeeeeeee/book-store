@@ -5,8 +5,15 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  ButtonGroup,
+  Button,
 } from "@chakra-ui/react";
-import { FaShoppingCart, FaRegUser, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaRegUser,
+  FaSignOutAlt,
+  FaBookOpen,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
@@ -23,6 +30,16 @@ const NavBar = () => {
         <Input placeholder="Search..." />
       </div>
       <div className="flex-none">
+        {/* <ButtonGroup>
+          <Link>
+            <Button colorScheme="blue" variant="outline">
+              REGISTER
+            </Button>
+          </Link>
+          <Link>
+            <Button colorScheme="blue">LOGIN</Button>
+          </Link>
+        </ButtonGroup> */}
         <Menu>
           <MenuButton>
             <Avatar name="username" src="https://bit.ly/dan-abramov" />
@@ -32,6 +49,12 @@ const NavBar = () => {
               <MenuItem>
                 <FaShoppingCart className="mr-4" />
                 Cart
+              </MenuItem>
+            </Link>
+            <Link to="/books/add">
+              <MenuItem>
+                <FaBookOpen className="mr-4" />
+                Publish
               </MenuItem>
             </Link>
             <Link to="/profile">
