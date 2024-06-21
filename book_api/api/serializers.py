@@ -19,3 +19,9 @@ class ProfileSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), allow_null=True)
     fullname = serializers.CharField(max_length=150)
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'user', 'fullname', 'role']
