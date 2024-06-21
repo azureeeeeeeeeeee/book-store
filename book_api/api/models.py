@@ -3,20 +3,21 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 # Create your models here.
-class Publisher(models.Model):
-    name = models.CharField(max_length=150)
-    email = models.EmailField()
-    profile_picture = models.ImageField(upload_to='cover/', blank=True, null=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    fullname = models.CharField(max_length=150)
+    profile_picture = models.ImageField(upload_to='profile/', blank=True, null=True)
+    role = models.CharField(max_length=50, default="customer")
+
+    def __str__(self) -> str:
+        return str(self.fullname)
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     description = models.TextField(max_length=100)
-    publisher = models.ForeignKey(Publisher, null=True, on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, limit_choices_to={'role':'publisher'})
     cover = models.ImageField(upload_to='cover/', blank=True, null=True)
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    fullname = models.CharField(max_length=150)
-    profile_picture = models.ImageField(upload_to='cover/', blank=True, null=True)
-
+    def __str__(self) -> str:
+        return str(self.title)

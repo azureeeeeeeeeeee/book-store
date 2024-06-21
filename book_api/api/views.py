@@ -4,7 +4,7 @@ from rest_framework import status
 from .serializers import PublisherSerializer, BookSerializer, ProfileSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import Publisher, Profile, Book
+from .models import Profile, Book
 from django.contrib.auth.models import User
 
 # Create your views here.
