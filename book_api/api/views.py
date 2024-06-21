@@ -50,10 +50,3 @@ def UserRegister(request):
 def UserLogout(request):
     logout(request)
     return Response({'message':'logout successful'}, status=status.HTTP_200_OK)
-
-
-@api_view(['GET'])
-def GetUser(request, pk):
-    profile = Profile.objects.get(pk=pk)
-    serializer = UserProfileSerializer(profile)
-    return Response(serializer.data)
