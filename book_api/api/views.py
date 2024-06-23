@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer
+from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer, ProfileSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from .models import Profile, Book
@@ -15,9 +15,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 @permission_classes([AllowAny])
 def getRoutes(request):
     routes = [
-        'POST /api/auth/login',
         'POST /api/auth/register',
-        'POST /api/auth/login',
+        'POST /api/auth/token/',
+        'POST /api/auth/token/refresh/',
     ]
     return Response(routes)
 
@@ -60,3 +60,15 @@ def UserLogout(request):
     request.user.auth_token.delete()
     logout(request)
     return Response({'message':'logout successful'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def GetUser(request):
+    user = request.user
+    profile = Profile.objects.filter(user=user).first()
+    serializer = ProfileSerializer(profile)
+    return Response({
+        'username': user.username,
+        'profile': serializer.data,
+    })

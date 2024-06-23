@@ -15,10 +15,15 @@ class BookSerializer(serializers.Serializer):
     publisher = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.filter(role="publisher"), allow_null=True)
 
 
-class ProfileSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
+class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), allow_null=True)
-    fullname = serializers.CharField(max_length=150)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+    # id = serializers.IntegerField(read_only=True)
+    # fullname = serializers.CharField(max_length=150)
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

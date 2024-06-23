@@ -31,7 +31,7 @@ const RegisterCustomer = () => {
     if (password !== password2) {
       toast.error("Password is not matching");
     }
-    const res = await axios.post("http://localhost:8000/api/auth/register", {
+    const res = await axios.post("http://localhost:8000/api/auth/register/", {
       username,
       password,
       fullname,
