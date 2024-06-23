@@ -26,10 +26,10 @@ const Login = () => {
       username,
       password,
     });
-    console.log(res.data.refresh);
-    console.log(res.data.access);
     localStorage.setItem("ACCESS_TOKEN", res.data.access);
     localStorage.setItem("REFRESH_TOKEN", res.data.refresh);
+    console.log(localStorage.getItem("ACCESS_TOKEN"));
+    console.log(localStorage.getItem("REFRESH_TOKEN"));
     toast.success("Login Sucessfull");
     navigate("/");
   };

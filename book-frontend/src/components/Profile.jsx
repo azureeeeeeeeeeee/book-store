@@ -8,7 +8,7 @@ const Profile = ({ imgSrc }) => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem("ACCESS_TOKEN");
+      let token = localStorage.getItem("ACCESS_TOKEN");
 
       try {
         const response = await axios.get("http://localhost:8000/api/profile/", {
@@ -16,9 +16,19 @@ const Profile = ({ imgSrc }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setProfile(response.data); // Update state with fetched profile data
+        setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
+        if (error.response.status === 401) {
+          const newToken = await axios.post(
+            "http://localhost:8000/api/token/refresh/",
+            {
+              refresh: localStorage.getItem("REFRESH_TOKEN"),
+            }
+          );
+          console.log(newToken);
+          localStorage.setItem("ACCESS_ToKEN", newToken);
+        }
       }
     };
 
