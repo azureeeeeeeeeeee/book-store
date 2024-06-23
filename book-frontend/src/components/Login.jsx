@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -21,24 +22,16 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
+    const res = await axios.post("http://localhost:8000/api/token/", {
+      username,
+      password,
     });
-
-    if (res.ok) {
-      toast.success("Login Success");
-      navigate("/");
-    } else {
-      toast.error("Login Failed");
-      console.log("Login Failed");
-    }
+    console.log(res.data.refresh);
+    console.log(res.data.access);
+    localStorage.setItem("ACCESS_TOKEN", res.data.access);
+    localStorage.setItem("REFRESH_TOKEN", res.data.refresh);
+    toast.success("Login Sucessfull");
+    navigate("/");
   };
 
   return (

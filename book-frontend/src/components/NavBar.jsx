@@ -30,6 +30,7 @@ const NavBar = () => {
         <Input placeholder="Search..." />
       </div>
       <div className="flex-none">
+        {/* If not logged in */}
         {/* <ButtonGroup>
           <Link>
             <Button colorScheme="blue" variant="outline">
@@ -40,6 +41,7 @@ const NavBar = () => {
             <Button colorScheme="blue">LOGIN</Button>
           </Link>
         </ButtonGroup> */}
+        {/* If logged in */}
         <Menu>
           <MenuButton>
             <Avatar name="username" src="https://bit.ly/dan-abramov" />

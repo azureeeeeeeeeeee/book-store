@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import "./App.css";
 import {
   Route,
@@ -34,25 +33,7 @@ const App = () => {
     )
   );
 
-  //   return <RouterProvider router={router} />;
   return <RouterProvider router={router} />;
 };
-
-// function App() {
-//   const router = createBrowserRouter(
-//     createRoutesFromElement(
-//       <Route path="/" element={<MainLayout />}>
-//         <Route index element={<HomePage />} />
-//       </Route>
-//     )
-//   );
-
-//   //   return <RouterProvider router={router} />;
-//   return (
-//     <>
-//       <NavBar />
-//     </>
-//   );
-// }
 
 export default App;
