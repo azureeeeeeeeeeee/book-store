@@ -72,3 +72,20 @@ def GetUser(request):
         'username': user.username,
         'profile': serializer.data,
     })
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def AddBook(request):
+    publisher = request.user.profile
+    data = request.data
+    uploaded_file = request.FILES.get('cover')
+    data['cover'] = uploaded_file
+
+    print(f'\n\n{data}\n\n')
+
+    serializer = BookSerializer(data=data)
+    if serializer.is_valid():
+        book = serializer.save(publisher=publisher)
+        return Response({'message': 'Book Added Successfully'}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

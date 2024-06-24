@@ -27,8 +27,8 @@ const Profile = ({ imgSrc }) => {
               refresh: localStorage.getItem("REFRESH_TOKEN"),
             }
           );
-          console.log(newToken);
-          localStorage.setItem("ACCESS_ToKEN", newToken);
+          console.log(newToken.data.access);
+          localStorage.setItem("ACCESS_ToKEN", newToken.data.access);
         }
       }
     };

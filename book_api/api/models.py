@@ -15,7 +15,7 @@ class Profile(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
-    description = models.TextField(max_length=100)
+    description = models.TextField(max_length=1500)
     publisher = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, limit_choices_to={'role':'publisher'})
     cover = models.ImageField(upload_to='cover/', blank=True, null=True)
 

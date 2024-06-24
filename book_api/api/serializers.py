@@ -8,12 +8,16 @@ class PublisherSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
 
-class BookSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=200)
-    author = serializers.CharField(max_length=100)
-    publisher = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.filter(role="publisher"), allow_null=True)
+class BookSerializer(serializers.ModelSerializer):
+    cover = serializers.ImageField(allow_empty_file=True, required=False)
+    class Meta:
+        model = Book
+        fields = '__all__'
 
+    def create(self, validated_data):
+        publisher = validated_data.pop('publisher', None)
+        book = Book.objects.create(publisher=publisher, **validated_data)
+        return book
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), allow_null=True)
@@ -21,9 +25,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
-
-    # id = serializers.IntegerField(read_only=True)
-    # fullname = serializers.CharField(max_length=150)
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

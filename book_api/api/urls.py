@@ -8,4 +8,6 @@ urlpatterns = [
     path('auth/logout/', views.UserLogout, name='logout'),
 
     path('profile/', views.GetUser, name='user-profile'),
+
+    path('book/add/', views.AddBook, name='add-book'),
 ]
