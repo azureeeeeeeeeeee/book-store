@@ -2,6 +2,7 @@ import { Avatar, Box, Heading, Button, SimpleGrid } from "@chakra-ui/react";
 import BookCard from "./BookCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const Profile = ({ imgSrc }) => {
   const [profile, setProfile] = useState(null);
@@ -35,10 +36,8 @@ const Profile = ({ imgSrc }) => {
     fetchProfile();
   }, []);
   if (!profile) {
-    return <p>Loading...</p>;
+    return <Spinner className="mt-12" />;
   }
-
-  console.log(profile);
 
   return (
     <Box className="mt-6">
