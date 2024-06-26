@@ -25,20 +25,11 @@ const BookForm = () => {
   const handleBookSubmit = async (e) => {
     e.preventDefault();
 
-    // const data = {
-    //   title,
-    //   author,
-    //   description,
-    //   cover,
-    // };
-
     const data = new FormData();
     data.append("title", title);
     data.append("author", author);
     data.append("description", description);
     data.append("cover", cover);
-
-    console.log(data);
 
     try {
       const res = await axios.post(

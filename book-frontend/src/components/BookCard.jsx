@@ -29,7 +29,7 @@ const BookCard = ({ book }) => {
           <Heading size="md">{book.title}</Heading>
           <Text>{book.description.substring(0, 100)}...</Text>
           <Text color="blue.600" fontSize="2xl">
-            $450
+            ${book.price}
           </Text>
         </Stack>
       </CardBody>
