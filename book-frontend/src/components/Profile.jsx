@@ -28,7 +28,7 @@ const Profile = ({ imgSrc }) => {
             }
           );
           console.log(newToken.data.access);
-          localStorage.setItem("ACCESS_ToKEN", newToken.data.access);
+          localStorage.setItem("ACCESS_TOKEN", newToken.data.access);
         }
       }
     };
