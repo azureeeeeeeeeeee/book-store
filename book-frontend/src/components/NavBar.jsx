@@ -17,6 +17,13 @@ import {
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const handleLogout = () => {
+    console.log("deleting access token");
+    localStorage.removeItem("ACCESS_TOKEN");
+    console.log("deleting refresh token");
+    localStorage.removeItem("REFRESH_TOKEN");
+    console.log("user logout");
+  };
   return (
     <nav className="flex items-center justify-between px-16 py-4">
       <div className="flex-none">
@@ -66,7 +73,7 @@ const NavBar = () => {
               </MenuItem>
             </Link>
             <Link>
-              <MenuItem>
+              <MenuItem onClick={handleLogout}>
                 <FaSignOutAlt className="mr-4" />
                 Logout
               </MenuItem>

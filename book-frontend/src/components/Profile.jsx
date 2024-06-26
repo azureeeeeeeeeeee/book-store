@@ -52,9 +52,9 @@ const Profile = ({ imgSrc }) => {
           spacing={10}
           className="place-items-center mt-24 my-20"
         >
-          <BookCard coverUrl={"./cover/cover-1.webp"} />
+          {/* <BookCard coverUrl={"./cover/cover-1.webp"} />
           <BookCard coverUrl={"./cover/cover-2.jpg"} />
-          <BookCard coverUrl={"./cover/cover-1.webp"} />
+          <BookCard coverUrl={"./cover/cover-1.webp"} /> */}
         </SimpleGrid>
         <Button colorScheme="blue" className="mb-6">
           Edit Profile
