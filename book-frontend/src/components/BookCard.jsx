@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 const BookCard = ({ book }) => {
-  console.log(book.cover);
   return (
     <Card maxW="sm">
       <CardBody>

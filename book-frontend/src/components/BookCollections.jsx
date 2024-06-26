@@ -13,7 +13,6 @@ const BookCollections = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get("http://localhost:8000/api/books/");
-        console.log(res.data.books);
         setBooks(res.data.books);
         setLoading(false);
       } catch (err) {

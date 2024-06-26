@@ -17,6 +17,7 @@ const BookForm = () => {
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const [cover, setCover] = useState(null);
+  const [price, setPrice] = useState(0);
 
   const token = localStorage.getItem("ACCESS_TOKEN");
 
@@ -29,6 +30,7 @@ const BookForm = () => {
     data.append("title", title);
     data.append("author", author);
     data.append("description", description);
+    data.append("price", price);
     data.append("cover", cover);
 
     try {
@@ -71,10 +73,19 @@ const BookForm = () => {
         />
       </FormControl>
       <FormControl>
+        <FormLabel>Price of the book</FormLabel>
+        <Input
+          placeholder="Price"
+          type="number"
+          onChange={(e) => setPrice(Number(e.target.value))}
+        />
+      </FormControl>
+      <FormControl>
         <FormLabel>Description of the book</FormLabel>
         <Textarea
           resize="vertical"
           placeholder="Book Description"
+          type="number"
           onChange={(e) => setDescription(e.target.value)}
         />
       </FormControl>
