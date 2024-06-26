@@ -32,6 +32,7 @@ const Login = () => {
     console.log(localStorage.getItem("REFRESH_TOKEN"));
     toast.success("Login Sucessfull");
     navigate("/");
+    window.location.reload();
   };
 
   return (
