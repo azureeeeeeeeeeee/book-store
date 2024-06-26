@@ -9,5 +9,6 @@ urlpatterns = [
 
     path('profile/', views.GetUser, name='user-profile'),
 
-    path('book/add/', views.AddBook, name='add-book'),
+    path('books/', views.GetAllBooks, name='books'),
+    path('books/add/', views.AddBook, name='add-book'),
 ]

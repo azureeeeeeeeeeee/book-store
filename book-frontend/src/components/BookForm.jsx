@@ -42,7 +42,7 @@ const BookForm = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/book/add/",
+        "http://localhost:8000/api/books/add/",
         data,
         {
           headers: {
@@ -52,7 +52,7 @@ const BookForm = () => {
         }
       );
       console.log(res);
-      toast.success(`Book "${title} Added"`);
+      toast.success(`Book "${title}" Added`);
       navigate("/");
     } catch (error) {
       console.log(error);

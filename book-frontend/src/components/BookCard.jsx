@@ -10,14 +10,15 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const BookCard = ({ coverUrl }) => {
+const BookCard = ({ book }) => {
+  console.log(book.cover);
   return (
     <Card maxW="sm">
       <CardBody>
         <Image
           //   boxSize="200px"
-          src={coverUrl}
-          alt="Green double couch with wooden legs"
+          src={`http://127.0.0.1:8000${book.cover}`}
+          alt={`Cover of the book ${book.title}`}
           borderRadius="lg"
           width="200px"
           height="300px"
@@ -25,12 +26,8 @@ const BookCard = ({ coverUrl }) => {
           className="mx-auto"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">Living room Sofa</Heading>
-          <Text>
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design
-            with a sprinkle of vintage design.
-          </Text>
+          <Heading size="md">{book.title}</Heading>
+          <Text>{book.description.substring(0, 100)}...</Text>
           <Text color="blue.600" fontSize="2xl">
             $450
           </Text>

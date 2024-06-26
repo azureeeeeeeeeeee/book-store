@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer, ProfileSerializer
+from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer, ProfileSerializer, GetBookSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from .models import Profile, Book
@@ -89,3 +89,11 @@ def AddBook(request):
         book = serializer.save(publisher=publisher)
         return Response({'message': 'Book Added Successfully'}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def GetAllBooks(request):
+    books = Book.objects.all()
+    serializer = GetBookSerializer(books, many=True)
+    return Response({'books': serializer.data}, status=status.HTTP_200_OK)
