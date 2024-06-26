@@ -11,4 +11,5 @@ urlpatterns = [
 
     path('books/', views.GetAllBooks, name='books'),
     path('books/add/', views.AddBook, name='add-book'),
+    path('books/<str:pk>/', views.GetBook, name='get-book'),
 ]

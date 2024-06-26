@@ -4,6 +4,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Spinner } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const BookCollections = () => {
   const [books, setBooks] = useState([]);
@@ -32,7 +33,9 @@ const BookCollections = () => {
       className="place-items-center mx-24 my-20"
     >
       {books.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <Link key={book.id} to={`books/${book.id}`}>
+          <BookCard key={book.id} book={book} />
+        </Link>
       ))}
     </SimpleGrid>
   );

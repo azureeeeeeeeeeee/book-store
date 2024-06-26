@@ -6,8 +6,30 @@ import {
   Image,
   SimpleGrid,
 } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Spinner } from "@chakra-ui/react";
 
 const BookProfile = () => {
+  const [book, setBook] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      const res = await axios.get(`http://127.0.0.1:8000/api/books/${id}/`);
+      setBook(res.data);
+      setLoading(false);
+    };
+    fetchJob();
+  }, [id]);
+
+  if (loading) {
+    return <Spinner className="mt-20" />;
+  }
+
   return (
     <Box className="flex justify-center px-10 mt-6">
       <SimpleGrid minChildWidth="200px" className="place-items-center">
@@ -17,27 +39,14 @@ const BookProfile = () => {
           width="200px"
           height="300px"
           borderRadius="lg"
-          src="./cover/cover-1.webp"
+          src={`http://127.0.0.1:8000${book.books.cover}`}
           alt="Caffe Latte"
         />
         <Box className="w-96">
-          <Heading size="xl">Judul Buku</Heading>
-          <Heading size="lg">by Author</Heading>
-          <Text className="mt-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente at
-            maxime alias. Blanditiis quos ducimus veritatis dolores nobis
-            impedit porro perspiciatis ratione sequi nisi? Necessitatibus
-            inventore quisquam asperiores. Nobis, excepturi corporis. Modi sint
-            quod omnis autem, quaerat nemo cumque totam tempora vero facilis
-            quasi reprehenderit magni aut, perferendis qui ullam maiores, iusto
-            architecto dignissimos necessitatibus non ipsum ea nihil officiis.
-            Molestias eum eveniet, voluptates consectetur pariatur amet nam
-            nesciunt perferendis accusantium, accusamus, fuga numquam sapiente
-            cumque? Odit, laboriosam fugit et perferendis aspernatur aut
-            dignissimos magni tempora reprehenderit minima, voluptatem
-            consequatur provident, harum exercitationem facere molestiae
-            cupiditate repudiandae error officiis iusto.
-          </Text>
+          <Heading size="xl">{book.books.title}</Heading>
+          <Heading size="lg">Written by {book.books.author}</Heading>
+          <Heading size="m">Published by {book.name}</Heading>
+          <Text className="mt-4">{book.books.description}</Text>
           <Box className="flex justify-center gap-4 mt-4">
             <Button colorScheme="blue">Buy Now</Button>
             <Button>Add To Cart</Button>

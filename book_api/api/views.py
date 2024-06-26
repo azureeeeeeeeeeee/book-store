@@ -97,3 +97,11 @@ def GetAllBooks(request):
     books = Book.objects.all()
     serializer = GetBookSerializer(books, many=True)
     return Response({'books': serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def GetBook(request, pk):
+    book = Book.objects.get(id=pk)
+    serializer = GetBookSerializer(book, many=False)
+    return Response({'books': serializer.data, 'name':book.publisher.fullname}, status=status.HTTP_200_OK)
