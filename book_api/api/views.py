@@ -111,7 +111,7 @@ def GetBook(request, pk):
 @permission_classes([IsAuthenticated])
 def AddToCart(request):
     user = request.user
-    cart = Cart.objects.get_or_create(user=user)
+    cart = Cart.objects.get_or_create(user=user)[0]
     book_id = request.data.get('book_id')
     quantity = request.data.get('quantity', 1)
 
