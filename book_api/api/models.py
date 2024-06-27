@@ -12,6 +12,7 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return str(self.fullname)
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
@@ -22,3 +23,29 @@ class Book(models.Model):
 
     def __str__(self) -> str:
         return str(self.title)
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"Cart of {self.user.username}"
+    
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.quantity} x {self.book.title} in {self.cart}"
+    
+class Transaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_date = models.DateTimeField(auto_now_add=True)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    status = models.CharField(max_length=30)
+
+    def __str__(self) -> str:
+        return f"Transaction by {self.user.username} on {self.transaction_date}"
