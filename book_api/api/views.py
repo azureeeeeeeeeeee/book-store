@@ -1,10 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer, ProfileSerializer, GetBookSerializer
+from .serializers import PublisherSerializer, BookSerializer, UserProfileSerializer, ProfileSerializer, GetBookSerializer, CartItemSerializer, TransactionSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import Profile, Book
+from .models import Profile, Book, Cart, CartItem, Transaction
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
@@ -53,7 +53,7 @@ def UserRegister(request):
         role=role
     )
 
-    return Response({'message': f'Register {user.username} Successful'}, status=status.HTTP_200_OK)
+    return Response({'message': f'Register {user.username} Successful'}, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 def UserLogout(request):
@@ -105,3 +105,31 @@ def GetBook(request, pk):
     book = Book.objects.get(id=pk)
     serializer = GetBookSerializer(book, many=False)
     return Response({'books': serializer.data, 'name':book.publisher.fullname}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def AddToCart(request):
+    user = request.user
+    cart = Cart.objects.get_or_create(user=user)
+    book_id = request.data.get('book_id')
+    quantity = request.data.get('quantity', 1)
+
+    book = Book.objects.get(id=book_id)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, book=book)
+    if not created:
+        cart_item.quantity += int(quantity)
+        cart_item.save()
+
+    serializer = CartItemSerializer(cart_item)
+    return Response({'items': serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ViewCart(request):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    items = cart.items.all()
+    serializer = CartItemSerializer(items, many=True)
+    return Response({'items': serializer.data}, status=status.HTTP_200_OK)

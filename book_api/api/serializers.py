@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Profile
+from .models import Book, Profile, CartItem, Transaction
 from django.contrib.auth.models import User
 
 class PublisherSerializer(serializers.ModelSerializer):
@@ -35,4 +35,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class GetBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
+        fields = '__all__'
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = '__all__'
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
         fields = '__all__'
