@@ -12,4 +12,7 @@ urlpatterns = [
     path('books/', views.GetAllBooks, name='books'),
     path('books/add/', views.AddBook, name='add-book'),
     path('books/<str:pk>/', views.GetBook, name='get-book'),
+
+    path('cart/view/', views.ViewCart, name='get-cart'),
+    path('cart/add/', views.AddToCart, name='add-cart'),
 ]
