@@ -14,16 +14,19 @@ import {
   FaSignOutAlt,
   FaBookOpen,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isTokenValid } from "../utils/auth";
 import { useState, useEffect } from "react";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("REFRESH_TOKEN");
+    navigate("/");
     window.location.reload();
   };
 
