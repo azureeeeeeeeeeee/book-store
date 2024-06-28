@@ -39,6 +39,7 @@ class GetBookSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    book =  GetBookSerializer()
     class Meta:
         model = CartItem
         fields = '__all__'

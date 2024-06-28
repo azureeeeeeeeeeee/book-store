@@ -1,7 +1,7 @@
 // import React from "react";
 import { Image, Text, Heading, Card, CardBody } from "@chakra-ui/react";
 
-const CartItem = ({ coverUrl }) => {
+const CartItem = ({ item }) => {
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -14,15 +14,16 @@ const CartItem = ({ coverUrl }) => {
         maxW={{ base: "100%", sm: "200px" }}
         width="100px"
         height="150px"
-        src={coverUrl}
+        src={`http://127.0.0.1:8000${item.book.cover}`}
         alt="Caffe Latte"
       />
 
       <CardBody className="mx-auto">
         <Text py="2">
-          <strong className="text-lg">Judul Buku</strong> - 3 Buku
+          <strong className="text-lg">{item.book.title}</strong> -{" "}
+          {item.quantity} Book(s)
         </Text>
-        <Heading>$10</Heading>
+        <Heading>${item.book.price * item.quantity}</Heading>
       </CardBody>
     </Card>
   );
