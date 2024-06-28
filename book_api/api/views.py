@@ -130,6 +130,6 @@ def AddToCart(request):
 def ViewCart(request):
     user = request.user
     cart = Cart.objects.get(user=user)
-    items = cart.items.all()
+    items = cart.cartitem_set.all()
     serializer = CartItemSerializer(items, many=True)
     return Response({'items': serializer.data}, status=status.HTTP_200_OK)
