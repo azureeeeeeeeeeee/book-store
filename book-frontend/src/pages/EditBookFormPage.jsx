@@ -23,6 +23,7 @@ const EditBookFormPage = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [newCover, setNewCover] = useState(null);
   const [cover, setCover] = useState(null);
   const [price, setPrice] = useState(0);
 
@@ -34,8 +35,9 @@ const EditBookFormPage = () => {
         // setBook(fetchedBook);
         setTitle(book.title);
         setAuthor(book.author);
-        setDescription(book.description);
         setCover(book.cover);
+        setDescription(book.description);
+
         setPrice(book.price);
       } catch (error) {
         console.error("Failed to fetch book:", error);
@@ -61,11 +63,13 @@ const EditBookFormPage = () => {
     data.append("author", author);
     data.append("description", description);
     data.append("price", price);
-    data.append("cover", cover);
+    if (newCover) {
+      data.append("cover", newCover);
+    }
 
     try {
       const res = await axios.put(
-        "http://localhost:8000/api/books/add/",
+        `http://localhost:8000/api/books/edit/${id}/`,
         data,
         {
           headers: {
@@ -75,11 +79,12 @@ const EditBookFormPage = () => {
         }
       );
       console.log(res);
-      toast.success(`Book "${title}" Added`);
-      navigate("/");
+      toast.success(`Book "${title}" Updated`);
+      navigate(`/books/${id}`);
     } catch (error) {
       console.log(error);
-      toast.error("Failed to add book");
+      toast.error("Failed to update book");
+      navigate("/");
     }
   };
 
@@ -132,7 +137,7 @@ const EditBookFormPage = () => {
         <Input
           type="file"
           accept="image/*"
-          onChange={(e) => setCover(e.target.files[0])}
+          onChange={(e) => setNewCover(e.target.files[0])}
         />
         <Box>
           <Text>Current Cover</Text>

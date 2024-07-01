@@ -133,3 +133,26 @@ def ViewCart(request):
     items = cart.cartitem_set.all()
     serializer = CartItemSerializer(items, many=True)
     return Response({'items': serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def EditBook(request, pk):
+    book = Book.objects.get(id=pk)
+    data = request.data
+    cover = request.FILES.get('cover')
+
+    print(f'\n\n{data}\n\n')
+
+    if book.publisher.user.id != request.user.id:
+        return Response({'message': 'user not authorized'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    serializer = BookSerializer(book, data=data, partial=True)
+    if serializer.is_valid():
+        if cover:
+            serializer.save(cover=cover)
+            return Response({'message': 'book updated'}, status=status.HTTP_200_OK)
+        serializer.save()
+        return Response({'message': 'book updated'}, status=status.HTTP_200_OK)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
