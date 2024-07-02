@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import BookFormPage from "./pages/BookFormPage";
 import BookPage from "./pages/BookPage";
 import EditBookFormPage from "./pages/EditBookFormPage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/edit" element={<EditProfilePage />} />
         <Route path="/books/:id" element={<BookPage />} />
         <Route path="/books/add" element={<BookFormPage />} />
         <Route path="/books/edit/:id" element={<EditBookFormPage />} />
