@@ -142,8 +142,6 @@ def EditBook(request, pk):
     data = request.data
     cover = request.FILES.get('cover')
 
-    print(f'\n\n{data}\n\n')
-
     if book.publisher.user.id != request.user.id:
         return Response({'message': 'user not authorized'}, status=status.HTTP_401_UNAUTHORIZED)
     
@@ -155,4 +153,18 @@ def EditBook(request, pk):
         serializer.save()
         return Response({'message': 'book updated'}, status=status.HTTP_200_OK)
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def EditProfile(request):
+    profile = Profile.objects.get(user=request.user)
+    data = request.data
+
+    serializer = ProfileSerializer(profile, data=data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message': 'user profile has been updated'}, status=status.HTTP_200_OK)
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
