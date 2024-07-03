@@ -1,9 +1,7 @@
-// import React from "react";
 import BookCard from "./BookCard";
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Spinner } from "@chakra-ui/react";
 
 const BookCollections = () => {
   const [books, setBooks] = useState([]);
@@ -17,24 +15,31 @@ const BookCollections = () => {
         setLoading(false);
       } catch (err) {
         console.log(err);
+        setLoading(false);
       }
     };
 
     fetchBooks();
   }, []);
 
-  return loading ? (
-    <Spinner className="mt-20" />
-  ) : (
-    <SimpleGrid
-      minChildWidth="300px"
-      spacing={10}
-      className="place-items-center mx-24 my-20"
-    >
-      {books.map((book) => (
-        <BookCard key={book.id} book={book} />
-      ))}
-    </SimpleGrid>
+  return (
+    <div>
+      {loading ? (
+        <Spinner className="mt-20" />
+      ) : (
+        <SimpleGrid
+          minChildWidth="300px"
+          spacing={10}
+          className="place-items-center mx-24 my-20"
+        >
+          {books.length > 0 ? (
+            books.map((book) => <BookCard key={book.id} book={book} />)
+          ) : (
+            <div>No Books Yet...</div>
+          )}
+        </SimpleGrid>
+      )}
+    </div>
   );
 };
 
