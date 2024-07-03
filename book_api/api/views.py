@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.db.models import Sum
 
 # Create your views here.
 @api_view(['GET'])
@@ -68,10 +69,29 @@ def GetUser(request):
     user = request.user
     profile = Profile.objects.filter(user=user).first()
     serializer = ProfileSerializer(profile)
+
+    if profile.role == 'publisher':
+        recent_books = Book.objects.filter(publisher=profile).order_by('-id')[:3]
+        book_serializer = BookSerializer(recent_books, many=True)
+        return Response({
+            'username': user.username,
+            'profile': serializer.data,
+            'recent_books': book_serializer.data
+        })
+    
+    elif profile.role == 'customer':
+        # total_spending = Transaction.objects.filter(user=user).aggregate(Sum('total_amount')['total_amount__sum']) or 0
+        total_spending = Transaction.objects.filter(user=user).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
+        return Response({
+            'username': user.username,
+            'profile': serializer.data,
+            'total_spending': total_spending,
+        })
+    
     return Response({
-        'username': user.username,
-        'profile': serializer.data,
-    })
+            'username': user.username,
+            'profile': serializer.data,
+        })
 
 
 @api_view(['POST'])

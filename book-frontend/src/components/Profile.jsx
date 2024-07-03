@@ -58,15 +58,15 @@ const Profile = ({ imgSrc }) => {
             className="place-items-center mt-24 my-20"
           >
             {/* Display last 3 books published */}
-            {/* <BookCard coverUrl={"./cover/cover-1.webp"} />
-          <BookCard coverUrl={"./cover/cover-2.jpg"} />
-          <BookCard coverUrl={"./cover/cover-1.webp"} /> */}
+            {profile.recent_books.map((book) => (
+              <BookCard key={book.id} book={book} />
+            ))}
           </SimpleGrid>
           <Link to="/profile/edit"></Link>
         </Box>
       ) : (
         <Heading size="base mx-auto" className="mt-4">
-          Total Spending : $125
+          Total Spending : ${profile.total_spending}
         </Heading>
       )}
       <Button colorScheme="blue" className="mt-6">
