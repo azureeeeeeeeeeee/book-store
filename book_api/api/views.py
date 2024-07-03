@@ -168,3 +168,25 @@ def EditProfile(request):
         return Response({'message': 'user profile has been updated'}, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def Checkout(request):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    total_amount = sum(item.book.price * item.quantity for item in cart_items)
+
+    transaction = Transaction.objects.create(
+        user=user,
+        total_amount=total_amount,
+        cart=cart,
+        status='completed'
+    )
+
+    cart_items.delete()
+
+    return Response({'message': 'Transaction successful', 'transaction_id': transaction.id}, status=status.HTTP_200_OK)

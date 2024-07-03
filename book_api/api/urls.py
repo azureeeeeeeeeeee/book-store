@@ -17,4 +17,6 @@ urlpatterns = [
 
     path('cart/view/', views.ViewCart, name='get-cart'),
     path('cart/add/', views.AddToCart, name='add-cart'),
+
+    path('checkout/', views.Checkout, name='checkout'),
 ]
