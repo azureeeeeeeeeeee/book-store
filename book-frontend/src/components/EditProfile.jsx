@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
-import {
-  Box,
-  Heading,
-  Input,
-  InputGroup,
-  Button,
-  Text,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Box, Heading, Input, Button, Text } from "@chakra-ui/react";
 import axios from "axios";
 import Spinner from "./Spinner";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   // const [username, setUsername]
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,7 +23,6 @@ const EditProfile = () => {
         });
         setUser(res.data);
         setFullname(res.data.profile.fullname);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,11 +37,25 @@ const EditProfile = () => {
     return <Spinner />;
   }
 
-  console.log(fullname);
-  //   console.log(user);
-
-  const handleEdit = async () => {
-    return "profile edit";
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("ACCESS_TOKEN");
+      await axios.put(
+        "http://localhost:8000/api/profile/edit/",
+        { fullname: fullname },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Profile edit successfully");
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed");
+    }
   };
   return (
     <Box borderRadius="l" className="flex flex-col gap-4 w-96 mx-auto my-6">
@@ -56,7 +64,7 @@ const EditProfile = () => {
       </Heading>
 
       <Box className="mt-4">
-        <form action="" onSubmit={handleEdit} method="POST">
+        <form onSubmit={handleEdit} method="PUT">
           <Heading className="mb-4" as="h2" size="lg">
             Edit Profile
           </Heading>
