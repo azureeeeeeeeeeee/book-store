@@ -3,6 +3,7 @@ import BookCard from "./BookCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
+import { Link } from "react-router-dom";
 
 const Profile = ({ imgSrc }) => {
   const [profile, setProfile] = useState(null);
@@ -56,9 +57,11 @@ const Profile = ({ imgSrc }) => {
           <BookCard coverUrl={"./cover/cover-2.jpg"} />
           <BookCard coverUrl={"./cover/cover-1.webp"} /> */}
         </SimpleGrid>
-        <Button colorScheme="blue" className="mb-6">
-          Edit Profile
-        </Button>
+        <Link to="/profile/edit">
+          <Button colorScheme="blue" className="mb-6">
+            Edit Profile
+          </Button>
+        </Link>
       </Box>
     </Box>
   );
