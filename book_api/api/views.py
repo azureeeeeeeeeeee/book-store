@@ -19,6 +19,19 @@ def getRoutes(request):
         'POST /api/auth/register',
         'POST /api/auth/token/',
         'POST /api/auth/token/refresh/',
+
+        'GET /api/profile/',
+        'PUT /api/profile/edit/',
+
+        'GET /api/books/',
+        'POST /api/books/add/',
+        'PUT /api/books/edit/:id/',
+        'GET /api/books/:id/',
+
+        'GET /api/cart/view/',
+        'POST /api/cart/add/',
+
+        'POST /api/checkout',
     ]
     return Response(routes)
 
