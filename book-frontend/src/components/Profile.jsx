@@ -36,9 +36,12 @@ const Profile = ({ imgSrc }) => {
 
     fetchProfile();
   }, []);
+
   if (!profile) {
     return <Spinner className="mt-12" />;
   }
+
+  console.log(profile);
 
   return (
     <Box className="mt-6">
@@ -46,24 +49,29 @@ const Profile = ({ imgSrc }) => {
       <Heading>
         {profile.profile.fullname} - @{profile.username}
       </Heading>
-      <Box className="mt-4">
-        <Heading size="base mx-auto">Recently Purchased :</Heading>
-        <SimpleGrid
-          minChildWidth="300px"
-          spacing={10}
-          className="place-items-center mt-24 my-20"
-        >
-          {/* Display last 3 books bought by user */}
-          {/* <BookCard coverUrl={"./cover/cover-1.webp"} />
+      {profile.profile.role === "publisher" ? (
+        <Box className="mt-4">
+          <Heading size="base mx-auto">Recently Published :</Heading>
+          <SimpleGrid
+            minChildWidth="300px"
+            spacing={10}
+            className="place-items-center mt-24 my-20"
+          >
+            {/* Display last 3 books published */}
+            {/* <BookCard coverUrl={"./cover/cover-1.webp"} />
           <BookCard coverUrl={"./cover/cover-2.jpg"} />
           <BookCard coverUrl={"./cover/cover-1.webp"} /> */}
-        </SimpleGrid>
-        <Link to="/profile/edit">
-          <Button colorScheme="blue" className="mb-6">
-            Edit Profile
-          </Button>
-        </Link>
-      </Box>
+          </SimpleGrid>
+          <Link to="/profile/edit"></Link>
+        </Box>
+      ) : (
+        <Heading size="base mx-auto" className="mt-4">
+          Total Spending : $125
+        </Heading>
+      )}
+      <Button colorScheme="blue" className="mt-6">
+        Edit Profile
+      </Button>
     </Box>
   );
 };
