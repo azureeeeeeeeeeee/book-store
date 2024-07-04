@@ -102,3 +102,4 @@ To access the database, use super user.
 * Cleaning the backend code
 * Adding Google OAuth Authorization
 * Create a constraint for a certain user profile's role
+* Fixing the mock transaction system to be able to handle more than 1 transaction
